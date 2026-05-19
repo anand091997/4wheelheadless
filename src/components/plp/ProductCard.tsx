@@ -88,7 +88,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
               </div>
             ) : null}
 
-            <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-2 lg:gap-5">
+            <div className="mt-auto flex gap-3 items-center sm:gap-2 lg:gap-5">
               <div className="w-full min-w-0 flex-1 sm:max-w-[288px]">
                 <ProductAddToCart
                   product={product}

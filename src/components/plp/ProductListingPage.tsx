@@ -273,7 +273,7 @@ function ProductListingContent({
         <div
           className="category-header relative mb-0 min-h-24 before:pointer-events-none before:absolute before:inset-0 before:z-0 before:h-full before:w-full before:bg-[linear-gradient(269.93deg,#0000_1.09%,#0006_50.42%,#000000b3_98.54%)] before:content-['']"
         >
-          <h1 className="page-title title-font absolute top-1/2 left-1/2 z-10 m-0 w-full -translate-x-1/2 -translate-y-1/2 py-3 text-left text-2xl font-bold text-white min-[1440px]:max-w-[1440px] min-[1440px]:px-5 md:text-4xl">
+          <h1 className="page-title title-font absolute top-1/2 left-1/2 z-10 m-0 w-full -translate-x-1/2 -translate-y-1/2 py-3 text-left text-2xl font-bold text-white min-[1440px]:max-w-[1440px] px-5 md:text-4xl">
             <span className="base" data-ui-id="page-title-wrapper">
               {initialCategoryName}
             </span>
