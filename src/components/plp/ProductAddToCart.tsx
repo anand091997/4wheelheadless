@@ -22,6 +22,8 @@ export default function ProductAddToCart({
 }: ProductAddToCartProps) {
   const {
     configurable,
+    viewProduct,
+    productUrl,
     selections,
     setSelection,
     canAddToCart,
@@ -43,9 +45,10 @@ export default function ProductAddToCart({
 
       <AddToCartButton
         productSku={product.sku}
-        onClick={handleAddToCart}
-        disabled={!canAddToCart}
-        loading={loading}
+        href={viewProduct ? productUrl : undefined}
+        onClick={viewProduct ? undefined : handleAddToCart}
+        disabled={viewProduct ? false : !canAddToCart}
+        loading={viewProduct ? false : loading}
       />
     </div>
   );

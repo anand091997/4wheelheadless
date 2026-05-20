@@ -19,12 +19,3 @@ export const SORT_OPTIONS: SortOption[] = [
 export type FilterSelection = {
   [attributeCode: string]: string[];
 };
-
-export type ProductListingData = {
-  items: ProductItem[];
-  aggregations: ProductAggregation[];
-  totalCount: number;
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
-};

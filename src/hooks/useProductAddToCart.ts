@@ -9,6 +9,7 @@ import {
   isConfigurableProduct,
   sortConfigurableOptions,
 } from "@/lib/configurableProduct";
+import { getProductUrl, requiresProductPage } from "@/lib/product";
 import type { ProductItem } from "@/framework/graphql/queries/products";
 import { useAddToCart } from "@/framework/graphql/mutations/cart";
 
@@ -16,7 +17,9 @@ export function useProductAddToCart(product: ProductItem) {
   const [selections, setSelections] = useState<Record<string, string>>({});
   const { addToCart, loading } = useAddToCart();
 
-  const configurable = isConfigurableProduct(product);
+  const viewProduct = requiresProductPage(product);
+  const productUrl = getProductUrl(product);
+  const configurable = !viewProduct && isConfigurableProduct(product);
   const canAddToCart =
     !configurable || areAllConfigurableOptionsSelected(product, selections);
 
@@ -51,6 +54,8 @@ export function useProductAddToCart(product: ProductItem) {
 
   return {
     configurable,
+    viewProduct,
+    productUrl,
     selections,
     setSelection,
     canAddToCart,

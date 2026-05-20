@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CompareIcon, WishlistIcon } from "@/components/Icon";
 import type { ProductItem } from "@/framework/graphql";
 import { useProductAddToCart } from "@/hooks/useProductAddToCart";
+import { getProductUrl } from "@/lib/product";
 import ConfigurableOptions from "./ConfigurableOptions";
 import ProductAddToCart from "./ProductAddToCart";
 import ProductCardImage from "./ProductCardImage";
@@ -39,7 +40,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const imageClassName = compact
     ? "aspect-square h-full w-full max-w-[287px] object-contain transition-transform duration-300 ease-out group-hover:scale-[1.2]"
     : "aspect-square h-full w-full max-h-full max-w-full object-contain transition-transform duration-300 ease-out group-hover:scale-[1.2]";
-  const productHref = product.url_key ? `/${product.url_key}` : "#";
+  const productHref = getProductUrl(product);
 
   if (compact) {
     return (

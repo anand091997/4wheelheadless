@@ -2,9 +2,10 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { CartIcon, CompareIcon, WishlistIcon } from "@/components/Icon";
+import { CartIcon, CompareIcon, EyeIcon, WishlistIcon } from "@/components/Icon";
 import type { ProductItem } from "@/framework/graphql";
 import { useProductAddToCart } from "@/hooks/useProductAddToCart";
+import { getProductUrl } from "@/lib/product";
 import ConfigurableOptions from "./ConfigurableOptions";
 import ProductCardImage from "./ProductCardImage";
 
@@ -53,6 +54,7 @@ function TableActionButton({
 export default function ProductTableRow({ product }: ProductTableRowProps) {
   const {
     configurable,
+    viewProduct,
     selections,
     setSelection,
     canAddToCart,
@@ -65,7 +67,7 @@ export default function ProductTableRow({ product }: ProductTableRowProps) {
   const minPrice = product.price_range?.minimum_price;
   const regular = minPrice?.regular_price;
   const final = minPrice?.final_price;
-  const productHref = product.url_key ? `/${product.url_key}` : "#";
+  const productHref = getProductUrl(product);
 
   return (
     <tr className="product-tr bg-white">
@@ -114,13 +116,23 @@ export default function ProductTableRow({ product }: ProductTableRowProps) {
       </td>
       <td className={`border-y border-r border-solid ${tableBorder} p-2 align-middle`}>
         <div className="flex items-center gap-3 text-[#51565b]">
-          <TableActionButton
-            label={`Add ${product.sku} to cart`}
-            disabled={!canAddToCart || loading}
-            onClick={handleAddToCart}
-          >
-            <CartIcon className="h-5 w-5 md:h-6 md:w-6" />
-          </TableActionButton>
+          {viewProduct ? (
+            <Link
+              href={productHref}
+              className="p-1 transition-colors hover:text-[#F50028] cursor-pointer"
+              aria-label={`View ${product.sku}`}
+            >
+              <EyeIcon className="h-5 w-5 md:h-6 md:w-6" />
+            </Link>
+          ) : (
+            <TableActionButton
+              label={`Add ${product.sku} to cart`}
+              disabled={!canAddToCart || loading}
+              onClick={handleAddToCart}
+            >
+              <CartIcon className="h-5 w-5 md:h-6 md:w-6" />
+            </TableActionButton>
+          )}
           <TableActionButton label={`Add ${product.sku} to compare`}>
             <CompareIcon className="h-5 w-5 md:h-6 md:w-6" />
           </TableActionButton>
