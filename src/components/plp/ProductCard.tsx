@@ -39,24 +39,29 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const imageClassName = compact
     ? "aspect-square h-full w-full max-w-[287px] object-contain transition-transform duration-300 ease-out group-hover:scale-[1.2]"
     : "aspect-square h-full w-full max-h-full max-w-full object-contain transition-transform duration-300 ease-out group-hover:scale-[1.2]";
+  const productHref = product.url_key ? `/${product.url_key}` : "#";
 
   if (compact) {
     return (
       <article className="product-item group flex min-w-0 flex-col overflow-hidden border border-gray-200 bg-white transition-shadow duration-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.12)] sm:flex-row">
         <div className="flex shrink-0 items-center justify-center overflow-hidden p-5">
-          <ProductCardImage
-            displayImage={displayImage}
-            fallbackName={product.name}
-            imageClassName="transition-transform duration-300 ease-out group-hover:scale-[1.2]"
-          />
+          <Link
+            href={productHref}
+            title={product.name}
+            className="product-item-photo block cursor-pointer"
+            tabIndex={-1}
+          >
+            <ProductCardImage
+              displayImage={displayImage}
+              fallbackName={product.name}
+              imageClassName="transition-transform duration-300 ease-out group-hover:scale-[1.2]"
+            />
+          </Link>
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex flex-1 flex-col p-5">
             <h3 className="text-base font-medium text-gray-900">
-              <Link
-                href={product.url_key ? `/${product.url_key}` : "#"}
-                className="product-item-link"
-              >
+              <Link href={productHref} className="product-item-link">
                 {product.name}
               </Link>
             </h3>
@@ -139,18 +144,22 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
       <div className="flex min-w-0 flex-1 flex-col p-2 lg:p-5">
         <div className="mb-3 flex items-center justify-center overflow-hidden">
-          <ProductCardImage
-            displayImage={displayImage}
-            fallbackName={product.name}
-            imageClassName={imageClassName}
-          />
+          <Link
+            href={productHref}
+            title={product.name}
+            className="product-item-photo block w-full max-w-[287px] cursor-pointer"
+            tabIndex={-1}
+          >
+            <ProductCardImage
+              displayImage={displayImage}
+              fallbackName={product.name}
+              imageClassName={imageClassName}
+            />
+          </Link>
         </div>
 
         <h3 className="mb-3 min-w-0 flex-1">
-          <Link
-            href={product.url_key ? `/${product.url_key}` : "#"}
-            className="product-item-link"
-          >
+          <Link href={productHref} className="product-item-link">
             {product.name}
           </Link>
         </h3>
