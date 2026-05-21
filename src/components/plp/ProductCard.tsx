@@ -49,7 +49,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           <Link
             href={productHref}
             title={product.name}
-            className="product-item-photo block cursor-pointer"
+            className="product-item-photo block"
             tabIndex={-1}
           >
             <ProductCardImage
@@ -148,7 +148,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           <Link
             href={productHref}
             title={product.name}
-            className="product-item-photo block w-full max-w-[287px] cursor-pointer"
+            className="product-item-photo block w-full max-w-[287px]"
             tabIndex={-1}
           >
             <ProductCardImage

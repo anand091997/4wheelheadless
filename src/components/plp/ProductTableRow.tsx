@@ -43,7 +43,7 @@ function TableActionButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="p-1 transition-colors hover:text-[#F50028] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+      className="p-1 transition-colors hover:text-[#F50028] disabled:opacity-50"
       aria-label={label}
     >
       {children}
@@ -77,7 +77,7 @@ export default function ProductTableRow({ product }: ProductTableRowProps) {
         <Link
           href={productHref}
           title={product.name}
-          className="product-item-photo block cursor-pointer"
+          className="product-item-photo block"
           tabIndex={-1}
         >
           <span className="inline-block h-[86px] w-[86px]">
@@ -119,7 +119,7 @@ export default function ProductTableRow({ product }: ProductTableRowProps) {
           {viewProduct ? (
             <Link
               href={productHref}
-              className="p-1 transition-colors hover:text-[#F50028] cursor-pointer"
+              className="p-1 transition-colors hover:text-[#F50028]"
               aria-label={`View ${product.sku}`}
             >
               <EyeIcon className="h-5 w-5 md:h-6 md:w-6" />

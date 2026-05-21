@@ -173,6 +173,11 @@ export type ProductItem = {
       } | null;
     } | null;
   } | null;
+  /** Present on PDP / detail queries when requested */
+  rating_summary?: number | null;
+  review_count?: number | null;
+  only_x_left_in_stock?: number | null;
+  stock_status?: string | null;
 };
 
 export type ProductsQueryResult = {

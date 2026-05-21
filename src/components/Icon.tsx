@@ -555,3 +555,51 @@ export function CompareIcon({ size = 24, className, ...props }: IconProps) {
     </svg>
   );
 }
+
+export function PlusIcon({ size = 24, className, ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      role="presentation"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 4v16m8-8H4"
+      />
+    </svg>
+  );
+}
+
+export function MinusIcon({ size = 24, className, ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      role="presentation"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M20 12H4"
+      />
+    </svg>
+  );
+}

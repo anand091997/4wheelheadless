@@ -8,7 +8,7 @@ type PaginationProps = {
 
 function getPageButtonClass(isActive: boolean) {
   const base =
-    "inline-flex h-11 w-11 items-center justify-center border bg-white text-sm transition-colors duration-200 cursor-pointer font-medium";
+    "inline-flex h-11 w-11 items-center justify-center border bg-white text-sm font-medium transition-colors duration-200";
 
   if (isActive) {
     return `${base} border-[#F50028] text-[#F50028]`;
@@ -18,7 +18,7 @@ function getPageButtonClass(isActive: boolean) {
 }
 
 function getNavButtonClass() {
-  return "inline-flex h-11 w-11 items-center justify-center border border-[#efefef] bg-white text-base text-black transition-colors duration-200 hover:border-[#F50028] hover:text-[#F50028] disabled:cursor-not-allowed disabled:hover:border-[#efefef] disabled:hover:text-black cursor-pointer";
+  return "inline-flex h-11 w-11 items-center justify-center border border-[#efefef] bg-white text-base text-black transition-colors duration-200 hover:border-[#F50028] hover:text-[#F50028] disabled:hover:border-[#efefef] disabled:hover:text-black";
 }
 
 function ChevronLeftIcon() {

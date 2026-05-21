@@ -109,6 +109,7 @@ export default function Header({
       <div className="container md:flex min-h-[68px] items-center justify-between max-md:flex-wrap flex">
         <div className="flex items-center gap-3">
           <button
+            type="button"
             onClick={() => {
               if (isMenuOpen) {
                 closeMenu();
@@ -188,7 +189,7 @@ export default function Header({
             >
               <button
                 onClick={closeMenu}
-                className="text-red-500 text-2xl ml-auto block px-4 pt-2"
+                className="ml-auto block px-4 pt-2 text-2xl text-red-500"
               >
                 ✕
               </button>
@@ -223,7 +224,7 @@ export default function Header({
                           navigateAndClose(cat.url_path);
                         }
                       }}
-                      className="flex justify-between w-full text-left items-center uppercase"
+                      className="flex w-full items-center justify-between text-left uppercase"
                     >
                       {cat.name}
 
@@ -255,7 +256,7 @@ export default function Header({
                       setLevel1(null);
                       setLevel2(null);
                     }}
-                    className="lg:hidden text-sm font-semibold flex items-center gap-1"
+                    className="flex items-center gap-1 text-sm font-semibold lg:hidden"
                   >
                     <BackIcon size={20} />
                   </button>
@@ -275,7 +276,7 @@ export default function Header({
                             navigateAndClose(cat.url_path);
                           }
                         }}
-                        className="flex justify-between w-full text-left items-center"
+                        className="flex w-full items-center justify-between text-left"
                       >
                         {cat.name}
 
@@ -300,7 +301,7 @@ export default function Header({
                   <button
                     type="button"
                     onClick={() => setLevel2(null)}
-                    className="lg:hidden text-sm font-semibold flex items-center gap-1"
+                    className="flex items-center gap-1 text-sm font-semibold lg:hidden"
                   >
                     <BackIcon size={20} />
                   </button>

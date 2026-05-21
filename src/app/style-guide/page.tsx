@@ -179,10 +179,10 @@ export default function StyleGuidePage() {
           </div>
 
           <div className="flex gap-5 rounded border border-dashed border-[#cca7d7] p-4">
-            <label className="flex h-[72px] w-[34px] cursor-pointer flex-col items-center justify-center gap-3 rounded border border-[#c48ad4]">
+            <label className="flex h-[72px] w-[34px] flex-col items-center justify-center gap-3 rounded border border-[#c48ad4]">
               <input type="radio" name="style-radio" className="h-3 w-3 accent-[#ff003c]" />
             </label>
-            <label className="flex h-[72px] w-[34px] cursor-pointer flex-col items-center justify-center gap-3 rounded border border-[#c48ad4]">
+            <label className="flex h-[72px] w-[34px] flex-col items-center justify-center gap-3 rounded border border-[#c48ad4]">
               <input type="checkbox" className="h-3 w-3 accent-[#ff003c]" defaultChecked />
             </label>
           </div>

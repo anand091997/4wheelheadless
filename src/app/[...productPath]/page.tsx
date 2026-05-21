@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import ProductDetailPage from "@/components/pdp/ProductDetailPage";
 import ProductListingPage from "@/components/plp/ProductListingPage";
-import { getCategoryByUrlPath, getCmsPageByRoute } from "@/framework/graphql";
+import { getCategoryByUrlPath, getCmsPageByRoute, getProductByUrlKey } from "@/framework/graphql";
 import { buildPageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
@@ -49,6 +50,31 @@ export async function generateMetadata({ params }: CatchAllPageProps): Promise<M
     });
   }
 
+  const urlKey = (productPath || []).filter(Boolean).at(-1)?.trim();
+  if (urlKey) {
+    const product = await getProductByUrlKey(urlKey).catch(() => null);
+    if (product?.name) {
+      const metaTitle = product.meta_title?.trim();
+      const title = metaTitle || product.name;
+      const plainShort =
+        product.short_description?.html
+          ?.replace(/<[^>]+>/g, " ")
+          .trim()
+          .slice(0, 160) || "";
+      const description =
+        product.meta_description?.trim() ||
+        (plainShort ? plainShort : `Buy ${product.name} online.`);
+
+      return buildPageMetadata({
+        title,
+        description,
+        keywords: product.meta_keyword,
+        path: joinedPath,
+        absoluteTitle: Boolean(metaTitle),
+      });
+    }
+  }
+
   return {};
 }
 
@@ -67,6 +93,14 @@ export default async function CatchAllProductPathPage({ params }: CatchAllPagePr
     return (
       <ProductListingPage initialCategoryId={category.id} initialCategoryName={category.name} />
     );
+  }
+
+  const urlKey = (productPath || []).filter(Boolean).at(-1)?.trim();
+  if (urlKey) {
+    const product = await getProductByUrlKey(urlKey).catch(() => null);
+    if (product?.sku) {
+      return <ProductDetailPage product={product} />;
+    }
   }
 
   notFound();

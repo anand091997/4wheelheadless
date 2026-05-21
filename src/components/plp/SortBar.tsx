@@ -43,7 +43,7 @@ export default function SortBar({
           onClick={onToggleSidebar}
           aria-label={isSidebarOpen ? "Hide filters" : "Show filters"}
           aria-expanded={isSidebarOpen}
-          className="action-filter flex items-center gap-x-2 w-32 h-10 md:h-11 justify-center sm:w-auto border border-solid border-[#d2d2d2] py-2 px-4 md:p-2 hover:text-white hover:bg-[#F50028] text-[#F50028] max-w-[105px]"
+          className="action-filter flex h-10 w-32 max-w-[105px] items-center justify-center gap-x-2 border border-solid border-[#d2d2d2] px-4 py-2 text-[#F50028] hover:bg-[#F50028] hover:text-white sm:w-auto md:h-11 md:p-2"
         >
           <FilterSlidersIcon size={24} />
           <span className="block lg:hidden">Filters</span>
@@ -96,7 +96,7 @@ export default function SortBar({
         <div className="lg:flex hidden items-center overflow-hidden border border-gray-300">
           <button
             type="button"
-            className={`p-2 items-center cursor-pointer justify-center flex w-11 aspect-square ${viewMode === "grid" ? "bg-[#ff003c] text-white" : ""}`}
+            className={`flex aspect-square w-11 items-center justify-center p-2 ${viewMode === "grid" ? "bg-[#ff003c] text-white" : ""}`}
             onClick={() => onChangeViewMode("grid")}
             aria-label="Grid view"
             aria-pressed={viewMode === "grid"}
@@ -105,7 +105,7 @@ export default function SortBar({
           </button>
           <button
             type="button"
-            className={`border-x border-gray-300 p-2 items-center cursor-pointer justify-center flex w-11 aspect-square ${viewMode === "list" ? "bg-[#ff003c] text-white" : ""}`}
+            className={`flex aspect-square w-11 items-center justify-center border-x border-gray-300 p-2 ${viewMode === "list" ? "bg-[#ff003c] text-white" : ""}`}
             onClick={() => onChangeViewMode("list")}
             aria-label="List view"
             aria-pressed={viewMode === "list"}
@@ -114,7 +114,7 @@ export default function SortBar({
           </button>
           <button
             type="button"
-            className={`p-2 items-center cursor-pointer justify-center flex w-11 aspect-square ${viewMode === "table" ? "bg-[#ff003c] text-white" : ""}`}
+            className={`flex aspect-square w-11 items-center justify-center p-2 ${viewMode === "table" ? "bg-[#ff003c] text-white" : ""}`}
             onClick={() => onChangeViewMode("table")}
             aria-label="Table view"
             aria-pressed={viewMode === "table"}

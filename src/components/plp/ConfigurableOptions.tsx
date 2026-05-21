@@ -43,7 +43,7 @@ function TextSwatchOption({
             aria-selected={isSelected}
             aria-label={`${option.label} ${value.label}`}
             onClick={() => onSelectionChange(option.uid, value.uid)}
-            className={`flex min-h-8 min-w-8 items-center justify-center border border-[#d2d2d2] bg-[#f4f4f4] px-2.5 font-medium text-gray-800 transition-colors hover:border-[#51565b] text-xs ${getSelectedSwatchClass(isSelected)}`}
+            className={`flex min-h-8 min-w-8 items-center justify-center border border-[#d2d2d2] bg-[#f4f4f4] px-2.5 text-xs font-medium text-gray-800 transition-colors hover:border-[#51565b] ${getSelectedSwatchClass(isSelected)}`}
           >
             {value.label}
           </button>

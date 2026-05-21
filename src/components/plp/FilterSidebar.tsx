@@ -74,7 +74,7 @@ export default function FilterSidebar({
           <button
             type="button"
             onClick={onClearFilters}
-            className="text-xs text-primary-darker hover:text-primary underline"
+            className="text-xs text-primary-darker underline hover:text-primary"
           >
             Clear All
           </button>
@@ -111,7 +111,7 @@ export default function FilterSidebar({
 
                     return (
                       <li key={option.value}>
-                        <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
+                        <label className="flex items-center gap-2 text-sm text-gray-700">
                           <input
                             type="checkbox"
                             checked={checked}

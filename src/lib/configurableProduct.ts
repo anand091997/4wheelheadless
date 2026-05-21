@@ -268,11 +268,14 @@ export function getDisplayImage(
 export function buildAddToCartInput(
   product: ProductItem,
   selections: Record<string, string>,
+  quantity = 1,
 ): AddToCartItemInput {
+  const qty = Math.min(999, Math.max(1, Math.floor(quantity) || 1));
+
   if (!isConfigurableProduct(product)) {
     return {
       sku: product.sku,
-      quantity: 1,
+      quantity: qty,
     };
   }
 
@@ -290,6 +293,6 @@ export function buildAddToCartInput(
     sku: product.sku,
     parentSku: product.sku,
     selectedOptions,
-    quantity: 1,
+    quantity: qty,
   };
 }

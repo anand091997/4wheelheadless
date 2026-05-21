@@ -37,6 +37,25 @@ body {
   font-family: "Roboto", Arial, sans-serif;
 }
 
+@layer base {
+  a[href] {
+    cursor: pointer;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  label:has(input:not(:disabled)) {
+    cursor: pointer;
+  }
+}
+
 .product-item .product-item-link {
   @apply line-clamp-2 w-full overflow-hidden text-xs font-bold leading-4 text-gray-900 no-underline transition-colors duration-300 md:text-base md:leading-6;
 }
@@ -249,4 +268,34 @@ body {
 
 .home-content {
   @apply py-16 text-center text-5xl font-bold;
+}
+
+/* PDP Swiper thumbnails — inactive = light grey; active = red border (Swiper adds .pdp-gallery-thumb-active via slideThumbActiveClass) */
+.pdp-gallery-thumb-slide {
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #e8e8e8 !important;
+  transition: border-color 0.15s ease;
+}
+
+.swiper-slide.pdp-gallery-thumb-slide.pdp-gallery-thumb-active,
+.pdp-gallery-thumb-slide.pdp-gallery-thumb-active,
+.pdp-gallery-thumb-slide[data-pdp-thumb-active="true"] {
+  border: 2px solid #f50028 !important;
+  box-shadow: none !important;
+}
+
+/* Main PDP gallery: Swiper needs an explicit height chain; min-height-only parents collapse slides */
+.pdp-main-swiper.swiper {
+  height: 100%;
+  width: 100%;
+}
+
+.pdp-main-swiper .swiper-wrapper {
+  height: 100%;
+}
+
+.pdp-main-swiper .swiper-slide {
+  height: 100%;
+  box-sizing: border-box;
 }

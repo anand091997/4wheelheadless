@@ -298,7 +298,7 @@ function ProductListingContent({
                 <button
                   type="button"
                   onClick={() => setIsMobileSidebarOpen(false)}
-                  className="flex h-8 w-8 items-center justify-center text-[#ff003c] cursor-pointer"
+                  className="flex h-8 w-8 items-center justify-center text-[#ff003c]"
                   aria-label="Close filters"
                 >
                   <CloseIcon size={20} />
