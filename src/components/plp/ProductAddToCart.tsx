@@ -98,7 +98,7 @@ export default function ProductAddToCart({
               max={maxOrderQty}
               value={quantity}
               onChange={(event) => onQuantityInput(event.target.value)}
-              className="h-10 lg:h-12 border-x border-[#efefef] [-moz-appearance:textfield] text-center min-h-0 w-11 lg:w-20"
+              className="h-10 md:h-12 border-x border-[#efefef] [-moz-appearance:textfield] text-center min-h-0 w-11 lg:w-20"
             />
             <button
               type="button"

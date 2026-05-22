@@ -253,7 +253,7 @@ export default function WriteReviewDrawer({
                 <p className="text-xs text-gray-500">Loading ratings…</p>
               ) : showStarRow ? (
                 <div
-                  className={`flex ${ratingError ? "ring-1 ring-red-600" : ""}`}
+                  className="flex"
                   role="group"
                   aria-label="Overall rating"
                   aria-invalid={Boolean(ratingError)}

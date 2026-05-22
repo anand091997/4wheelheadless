@@ -8,6 +8,7 @@ import { buildGalleryImagesFromDetail, buildPdpSlides } from "@/lib/pdpGallery";
 import ProductAddToCart from "@/components/plp/ProductAddToCart";
 import ProductGallery from "@/components/pdp/ProductGallery";
 import ProductPdpAccordions from "@/components/pdp/ProductPdpAccordions";
+import ProductRatingSummary from "@/components/pdp/ProductRatingSummary";
 import ProductReviewsSection from "@/components/pdp/ProductReviewsSection";
 
 function formatPrice(value: number | undefined, currency: string | undefined) {
@@ -80,7 +81,13 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
         </div>
 
         <div className="product-info w-full mb-2 lg:mb-6 relative">
-          <h1 className="text-xl font-bold lg:text-2xl mb-2 lg:mb-4">{product.name}</h1>
+          <h1 className="text-xl font-bold lg:text-2xl mb-2 lg:mb-3">{product.name}</h1>
+
+          <ProductRatingSummary
+            reviewCount={product.review_count}
+            ratingSummary={product.rating_summary}
+            className="mb-2 lg:mb-4"
+          />
 
           {hasDiscount ? (
             <div className="flex flex-wrap items-baseline gap-2">
@@ -92,7 +99,7 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
               </span>
             </div>
           ) : (
-            <div className="my-4">
+            <div className="mb-4">
               <span className="price-wrapper title-font font-bold text-xl lg:text-2xl xl:text-3xl">
                 {formatPrice(final?.value ?? regular?.value, final?.currency ?? regular?.currency)}
               </span>
