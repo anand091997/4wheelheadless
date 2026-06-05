@@ -6,6 +6,7 @@ import { A11y, Keyboard, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CloseIcon, CompareIcon, WishlistIcon } from "@/components/Icon";
 import type { ProductDisplayImage } from "@/lib/configurableProduct";
+import { findSlideIndexByUrl } from "@/lib/pdpGallery";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -119,7 +120,7 @@ export default function ProductGallery({
     if (!url || !swiper || slides.length === 0) {
       return;
     }
-    const index = slides.findIndex((s) => s.url.trim() === url);
+    const index = findSlideIndexByUrl(slides, url);
     if (index >= 0) {
       if (swiper.activeIndex !== index) {
         swiper.slideTo(index);

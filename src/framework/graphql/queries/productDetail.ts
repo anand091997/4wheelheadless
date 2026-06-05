@@ -1,6 +1,39 @@
 import { gql } from "@apollo/client";
 import { createApolloClient } from "../apolloClient";
+import { PRODUCT_LIST_ITEM_FIELDS } from "../fragments/productListItemFields";
 import type { ProductItem } from "./products";
+
+export type BundleItemOption = {
+  uid: string;
+  label: string;
+  is_default?: boolean | null;
+  quantity?: number | null;
+  can_change_quantity?: boolean | null;
+  product?: {
+    sku?: string | null;
+    name?: string | null;
+    small_image?: { url?: string | null; label?: string | null } | null;
+    price_range?: {
+      minimum_price?: {
+        final_price?: { value?: number | null; currency?: string | null } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type BundleItem = {
+  uid: string;
+  title: string;
+  required: boolean;
+  type: string;
+  options?: BundleItemOption[] | null;
+};
+
+export type GroupedProductChild = {
+  position?: number | null;
+  qty?: number | null;
+  product?: ProductItem | null;
+};
 
 export const PRODUCT_DETAIL_QUERY = gql`
   query ProductDetail($urlKey: String!) {
@@ -60,6 +93,71 @@ export const PRODUCT_DETAIL_QUERY = gql`
             total_pages
           }
         }
+        ... on BundleProduct {
+          dynamic_price
+          price_view
+          items {
+            uid
+            title
+            required
+            type
+            options {
+              uid
+              label
+              is_default
+              quantity
+              can_change_quantity
+              product {
+                sku
+                name
+                small_image {
+                  url
+                  label
+                }
+                price_range {
+                  minimum_price {
+                    final_price {
+                      value
+                      currency
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        ... on GroupedProduct {
+          items {
+            position
+            qty
+            product {
+              uid
+              id
+              name
+              sku
+              url_key
+              __typename
+              stock_status
+              only_x_left_in_stock
+              small_image {
+                url
+                label
+              }
+              price_range {
+                minimum_price {
+                  regular_price {
+                    value
+                    currency
+                  }
+                  final_price {
+                    value
+                    currency
+                  }
+                }
+              }
+            }
+          }
+        }
         ... on ConfigurableProduct {
           configurable_options {
             uid
@@ -114,6 +212,15 @@ export const PRODUCT_DETAIL_QUERY = gql`
             }
           }
         }
+        related_products {
+          ${PRODUCT_LIST_ITEM_FIELDS}
+        }
+        upsell_products {
+          ${PRODUCT_LIST_ITEM_FIELDS}
+        }
+        crosssell_products {
+          ${PRODUCT_LIST_ITEM_FIELDS}
+        }
       }
     }
   }
@@ -163,6 +270,13 @@ export type ProductDetailItem = ProductItem & {
   } | null;
   media_gallery?: MediaGalleryEntry[] | null;
   reviews?: ProductReviewsConnection | null;
+  related_products?: ProductItem[] | null;
+  upsell_products?: ProductItem[] | null;
+  crosssell_products?: ProductItem[] | null;
+  dynamic_price?: boolean | null;
+  price_view?: string | null;
+  /** Bundle options (`BundleProduct`) or grouped children (`GroupedProduct`). */
+  items?: BundleItem[] | GroupedProductChild[] | null;
 };
 
 export type ProductDetailQueryResult = {

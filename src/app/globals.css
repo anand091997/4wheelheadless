@@ -299,3 +299,33 @@ body {
   height: 100%;
   box-sizing: border-box;
 }
+
+/* PDP linked product carousels */
+.product-linked-swiper.swiper {
+  overflow: hidden;
+}
+
+.product-linked-swiper .swiper-slide {
+  height: auto;
+  box-sizing: border-box;
+}
+
+.product-linked-swiper .product-item {
+  height: 100%;
+}
+
+/* Grouped PDP — full-width add to cart (isolated from theme .btn rules) */
+.grouped-pdp-purchase .pdp-addtocart-full {
+  display: flex !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0;
+  border-radius: 0;
+  line-height: 1.25;
+  appearance: none;
+}
+
+.grouped-pdp-purchase .pdp-addtocart-full:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

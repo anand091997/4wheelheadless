@@ -10,6 +10,8 @@ export type AddToCartItemInput = {
   quantity?: number;
   parentSku?: string;
   selectedOptions?: string[];
+  /** Bundle option UIDs use selected_options without parent_sku. */
+  isBundle?: boolean;
 };
 
 export type ProductDisplayImage = {

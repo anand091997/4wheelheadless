@@ -98,6 +98,7 @@ export default async function CatchAllProductPathPage({ params }: CatchAllPagePr
   const urlKey = (productPath || []).filter(Boolean).at(-1)?.trim();
   if (urlKey) {
     const product = await getProductByUrlKey(urlKey).catch(() => null);
+    console.log("product", product);
     if (product?.sku) {
       return <ProductDetailPage product={product} />;
     }

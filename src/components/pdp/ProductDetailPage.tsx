@@ -3,11 +3,11 @@
 import { useMemo } from "react";
 import type { ProductDetailItem } from "@/framework/graphql/queries/productDetail";
 import { useProductAddToCart } from "@/hooks/useProductAddToCart";
-import { requiresProductPage } from "@/lib/product";
 import { buildGalleryImagesFromDetail, buildPdpSlides } from "@/lib/pdpGallery";
-import ProductAddToCart from "@/components/plp/ProductAddToCart";
 import ProductGallery from "@/components/pdp/ProductGallery";
+import ProductPdpPurchase from "@/components/pdp/ProductPdpPurchase";
 import ProductPdpAccordions from "@/components/pdp/ProductPdpAccordions";
+import ProductPdpLinkedProducts from "@/components/pdp/ProductPdpLinkedProducts";
 import ProductRatingSummary from "@/components/pdp/ProductRatingSummary";
 import ProductReviewsSection from "@/components/pdp/ProductReviewsSection";
 
@@ -49,7 +49,6 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
 
   const shortHtml = product.short_description?.html?.trim();
   const longHtml = product.description?.html?.trim();
-  const needsConfigurator = requiresProductPage(product);
   const purchaseDisabled = product.stock_status === "OUT_OF_STOCK";
 
   const overviewContent = (
@@ -106,27 +105,11 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
             </div>
           )}
 
-          {needsConfigurator ? (
-            <p className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-              Bundle and grouped products need a dedicated configurator on the product page. That
-              flow is not wired yet; this page is set up for simple (and configurable) products first.
-            </p>
-          ) : (
-            <>
-              {purchaseDisabled ? (
-                <p className="mb-3 text-sm font-medium text-red-800">This item is currently out of stock.</p>
-              ) : null}
-              <ProductAddToCart
-                product={product}
-                cartState={cartState}
-                showOptions
-                showQuantity
-                pdpCartLayout
-                purchaseDisabled={purchaseDisabled}
-                className="w-full"
-              />
-            </>
-          )}
+          <ProductPdpPurchase
+            product={product}
+            cartState={cartState}
+            purchaseDisabled={purchaseDisabled}
+          />
 
           <ProductPdpAccordions
               overview={overviewContent}
@@ -134,6 +117,8 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
             />
         </div>
       </div>
+
+      <ProductPdpLinkedProducts product={product} />
     </main>
   );
 }

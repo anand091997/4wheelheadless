@@ -1,6 +1,35 @@
 import type { ProductDetailItem } from "@/framework/graphql/queries/productDetail";
 import type { ProductDisplayImage } from "@/lib/configurableProduct";
 
+/** Compare gallery URLs regardless of trailing slash or absolute vs path-only. */
+export function normalizeGalleryImageUrl(url: string): string {
+  const trimmed = url.trim();
+  if (!trimmed) {
+    return "";
+  }
+
+  try {
+    const parsed = new URL(trimmed, "https://pdp.local");
+    return parsed.pathname.replace(/\/$/, "").toLowerCase();
+  } catch {
+    return trimmed.replace(/\/$/, "").toLowerCase();
+  }
+}
+
+export function findSlideIndexByUrl(
+  slides: ProductDisplayImage[],
+  targetUrl: string,
+): number {
+  const normalizedTarget = normalizeGalleryImageUrl(targetUrl);
+  if (!normalizedTarget) {
+    return -1;
+  }
+
+  return slides.findIndex(
+    (slide) => normalizeGalleryImageUrl(slide.url) === normalizedTarget,
+  );
+}
+
 export function buildGalleryImagesFromDetail(product: ProductDetailItem): ProductDisplayImage[] {
   const gallery = product.media_gallery ?? [];
   const sorted = [...gallery].sort((a, b) => {
@@ -74,8 +103,15 @@ export function buildPdpSlides(
   }
 
   const trimmed = displayImage.url.trim();
-  if (base.some((s) => s.url.trim() === trimmed)) {
-    return base;
+  const matchIndex = findSlideIndexByUrl(base, trimmed);
+
+  if (matchIndex >= 0) {
+    if (matchIndex === 0) {
+      return base;
+    }
+    const reordered = [...base];
+    const [activeSlide] = reordered.splice(matchIndex, 1);
+    return [activeSlide, ...reordered];
   }
 
   return [

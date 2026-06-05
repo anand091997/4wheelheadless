@@ -74,6 +74,7 @@ function normalizeAddToCartInput(
     sku: input.sku.trim(),
     quantity: input.quantity ?? 1,
     parentSku: input.parentSku?.trim(),
+    isBundle: input.isBundle,
     selectedOptions: input.selectedOptions
       ?.map((optionUid) => optionUid.trim())
       .filter(Boolean),
@@ -160,22 +161,31 @@ export function useAddToCart() {
   }, [createEmptyCart]);
 
   const addToCart = useCallback(
-    async (input: AddToCartItemInput | string) => {
-      const normalizedInput = normalizeAddToCartInput(input);
+    async (input: AddToCartItemInput | AddToCartItemInput[] | string) => {
+      const normalizedInputs = (
+        typeof input === "string"
+          ? [normalizeAddToCartInput(input)]
+          : Array.isArray(input)
+            ? input.map((entry) => normalizeAddToCartInput(entry))
+            : [normalizeAddToCartInput(input)]
+      ).filter((entry) => entry.sku);
 
-      if (!normalizedInput.sku) {
+      if (normalizedInputs.length === 0) {
         throw new Error("Product SKU is required.");
       }
 
-      if ((normalizedInput.quantity ?? 1) < 1) {
-        throw new Error("Quantity must be at least 1.");
-      }
+      for (const normalizedInput of normalizedInputs) {
+        if ((normalizedInput.quantity ?? 1) < 1) {
+          throw new Error("Quantity must be at least 1.");
+        }
 
-      if (
-        normalizedInput.selectedOptions?.length &&
-        !normalizedInput.parentSku
-      ) {
-        throw new Error("Parent SKU is required for configurable products.");
+        if (
+          normalizedInput.selectedOptions?.length &&
+          !normalizedInput.parentSku &&
+          !normalizedInput.isBundle
+        ) {
+          throw new Error("Parent SKU is required for configurable products.");
+        }
       }
 
       setLoading(true);
@@ -183,13 +193,13 @@ export function useAddToCart() {
       try {
         let cartId = await ensureCartId();
         let retried = false;
-        const cartItem = buildCartItemInput(normalizedInput);
+        const cartItems = normalizedInputs.map((entry) => buildCartItemInput(entry));
 
         while (true) {
           const { data } = await addProductsToCart({
             variables: {
               cartId,
-              cartItems: [cartItem],
+              cartItems,
             },
           });
 

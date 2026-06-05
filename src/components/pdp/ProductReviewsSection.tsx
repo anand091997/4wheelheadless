@@ -112,6 +112,7 @@ export default function ProductReviewsSection({ product }: ProductReviewsSection
       query: PRODUCT_DETAIL_QUERY,
       variables: { urlKey },
     });
+    console.log("data", data);
     const next = data?.products?.items?.[0]?.reviews?.items?.filter(Boolean) as
       | ProductReviewItem[]
       | undefined;
